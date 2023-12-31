@@ -65,6 +65,12 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Models\ChainOfResponsibility\DescriptionValidationHandler.cs" />
+        <Compile Include="Models\ChainOfResponsibility\IPackageHandler.cs" />
+        <Compile Include="Models\ChainOfResponsibility\NameValidationHandlerer.cs" />
+        <Compile Include="Models\ChainOfResponsibility\StorageValidationHandler.cs" />
+        <Compile Include="Models\Package.cs" />
+        <Compile Include="Models\WarehouseManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs">
             <SubType>Code</SubType>
         </Compile>
@@ -80,6 +86,9 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config"/>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Helpers\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>
