@@ -15,7 +15,7 @@ public class DescriptionValidationHandler : IPackageHandler
 
         if (package.Description.Length < 5 || package.Description.Length > 200)
         {
-            MessageBox.Show("Description must be between 10 and 200 characters.");
+            MessageBox.Show("Description must be between 5 and 200 characters.");
             return false;
         }
 

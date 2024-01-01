@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -34,8 +35,13 @@ public class NameValidationHandler : IPackageHandler
             return false;
         }
 
+
+      
+
+
         if (!IsNameUnique(package.Name))
         {
+            Console.WriteLine(package.Name);
             MessageBox.Show("Name must be unique.");
             return false;
         }
@@ -50,7 +56,6 @@ public class NameValidationHandler : IPackageHandler
 
     private bool IsNameUnique(string name)
     {
-        Console.WriteLine(name);
         return Packages.All(p => p.Name != name);
     }
 

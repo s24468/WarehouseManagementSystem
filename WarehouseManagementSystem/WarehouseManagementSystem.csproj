@@ -69,6 +69,7 @@
         <Compile Include="Models\ChainOfResponsibility\IPackageHandler.cs" />
         <Compile Include="Models\ChainOfResponsibility\NameValidationHandlerer.cs" />
         <Compile Include="Models\ChainOfResponsibility\StorageValidationHandler.cs" />
+        <Compile Include="Models\Momento\PackageMemento.cs" />
         <Compile Include="Models\Package.cs" />
         <Compile Include="Models\WarehouseManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs">
@@ -89,6 +90,9 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Helpers\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="temp.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>
