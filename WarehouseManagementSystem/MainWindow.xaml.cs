@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO.Packaging;
+using System.Linq;
 using System.Windows;
 using WarehouseManagementSystem.Models;
 
@@ -13,6 +13,7 @@ namespace TaskManagementApp
         private readonly WarehouseManager WarehouseManager;
         private IPackageHandler _handlerChain;
         private PackageMemento _lastState;
+        private readonly PackagePool _packagePool;
 
         public MainWindow()
         {
@@ -27,13 +28,17 @@ namespace TaskManagementApp
             Packages = new ObservableCollection<Package>();
             lvTasks.ItemsSource = Packages;
             WarehouseManager = new WarehouseManager(_storages);
+            _packagePool = new PackagePool();
             UpdateHandlers();
         }
 
         private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
             UpdateHandlers();
-            var package = new Package(txtPackageName.Text, txtDescription.Text, txtStorage.Text);
+            var package = _packagePool.GetPackage();
+            package.Name = txtPackageName.Text;
+            package.Description = txtDescription.Text;
+            package.Storage = txtStorage.Text;
             var isValid = _handlerChain.Handle(package);
             if (isValid)
             {
@@ -44,15 +49,21 @@ namespace TaskManagementApp
                 txtDescription.Clear();
                 txtStorage.Clear();
             }
+            else
+            {
+                _packagePool.ReleasePackage(package);
+            }
         }
 
         private void UndoLastAction_Click(object sender, RoutedEventArgs e)
         {
             if (_lastState != null)
             {
+                var lastPackage = Packages.Last();
                 Packages = _lastState.PackagesState;
                 WarehouseManager._storages = _lastState.WarehouseState;
-                lvTasks.ItemsSource = Packages; 
+                lvTasks.ItemsSource = Packages;
+                _packagePool.ReleasePackage(lastPackage);
             }
         }
 
@@ -64,13 +75,18 @@ namespace TaskManagementApp
             _handlerChain.SetNext(descriptionHandler);
             descriptionHandler.SetNext(storageHandler);
         }
-        
+
 
         private void Show_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var x in Packages)
+            foreach (var x in _packagePool.inUse)
             {
-                Console.WriteLine($"Name: {x.Name}, Description: {x.Description}, Storage: {x.Storage}");
+                Console.WriteLine($"In use!!! Name: {x.Name}, Description: {x.Description}, Storage: {x.Storage}");
+            }
+
+            foreach (var x in _packagePool.available)
+            {
+                Console.WriteLine($"Avaible!!! Name: {x.Name}, Description: {x.Description}, Storage: {x.Storage}");
             }
         }
     }

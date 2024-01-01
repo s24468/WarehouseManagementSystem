@@ -4,10 +4,15 @@
     public string Description { get; set; }
     public string Storage { get; set; }
 
-    public Package(string name, string description, string storage)
+    public Package()
     {
-        Name = name;
-        Description = description;
-        Storage = storage;
+        Reset();
+    }
+
+    public void Reset()
+    {
+        Name = null;
+        Description = null;
+        Storage = null;
     }
 }

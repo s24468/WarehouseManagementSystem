@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using WarehouseManagementSystem.Models;
@@ -35,13 +33,8 @@ public class NameValidationHandler : IPackageHandler
             return false;
         }
 
-
-      
-
-
         if (!IsNameUnique(package.Name))
         {
-            Console.WriteLine(package.Name);
             MessageBox.Show("Name must be unique.");
             return false;
         }
